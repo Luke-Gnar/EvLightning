@@ -22,7 +22,7 @@ A lightning bolt is split into lines, and where the lines meet is considered to 
 
 ## API
 
-### *LightningBolt* LightningBolt.new(*Vector3* from, *Vector3* to[, *dictionary* options])
+### *LightningBolt* LightningBolt.new(*Vector3* from, *Vector3* to, [*dictionary* options])
 Returns an instance of *LightningBolt*. Automatically generates in the constructor, but further methods must be called on the returned instance to render the bolt.
 
 #### Options
@@ -31,15 +31,15 @@ There are a number of options that you can pass in a third argument to `Lightnin
 
 | Option name | Description | Default value | Type |
 | ----------- | ----------- | ------------- | ---- |
-| seed | A numerical seed which could be used to generate the same lightning bolt across a network.| *Random* | Number
+| seed | A numerical seed which could be used to generate the same lightning bolt across a network. | *Random* | Number
 | bends | The number of bends the main bolt should have. | 6 | Integer
 | fork_bends | The number of bends to put into forks off of the main bolt. | 2 | Integer
 | fork_chance | The chance to create a new fork off of each bend. (0-100) | 50 | Number
 | transparency | The transparency of the main bolt. Transparency is reduced at every fork. | 0.4 | Number
 | thickness | The thickness of the main bolt. Thickness is reduced at every fork. | 1 | Number
 | max_depth | The maximum depth that forks can reach off the main bolt, which is depth 0. | 3 | Integer
-| color | The color of the bolt | White | BrickColor or Color3
-| material | The material of the bolt | Enum.Material.Neon | Enum.Material
+| color | The color of the bolt. | White | BrickColor or Color3
+| glow | Whether or not the bolt should glow. (Similar to the neon material) | True | Boolean
 | decay | The number of seconds for the bolt to exist after being drawn. | *Infinite* | Number
 
 Note that the `fork_chance` option is not an equal chance for every bend in the bolt. The chance is distributed in a gradient down the length of the bolt, meaning that if the fork_chance is 50, then at the very top it will be 0, at the middle it will be 25, and at the very bottom it will be 50. This is done so that less forks are generated towards the top, which makes the bolt look more realistic. If you need to create upwards-forking lightning, then simply reverse the to and from arguments.
