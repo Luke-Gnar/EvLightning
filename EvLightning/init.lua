@@ -3,14 +3,12 @@
 -- Author: Eryn L. K. <eryn.io>
 -- Username: evaera
 -- Original Written Date: 3/23/2016
-
 --]]
 
 local Debris = game:GetService("Debris")
 local class = require(script.Class)
 
 local LightningBolt = class() do
-	local partTemplate = Instance.new("CylinderHandleAdornment")
 
 	function LightningBolt:init(origin, goal, options)
 		if typeof(origin) ~= "Vector3" then
@@ -34,7 +32,7 @@ local LightningBolt = class() do
 		self.depth = self.options.depth or 0
 		self.thickness = self.options.thickness or 1
 		self.rep = self.options.bends or 6
-		self.glow = self.options.glow or true
+		self.glow = self.options.glow
 
 		if self.options.color then
 			if typeof(self.options.color) == "Color3" then
@@ -133,7 +131,7 @@ local LightningBolt = class() do
 		self.model = model
 		model.Name = "LightningBolt"
 
-		local template = partTemplate:Clone()
+		local template = Instance.new("CylinderHandleAdornment")
 		template.Adornee = workspace.Terrain
 		template.Color3 = self.color
 		template.AlwaysOnTop = self.glow
