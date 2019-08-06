@@ -3,17 +3,14 @@
 -- Author: Eryn L. K. <eryn.io>
 -- Username: evaera
 -- Original Written Date: 3/23/2016
+
 --]]
 
 local Debris = game:GetService("Debris")
 local class = require(script.Class)
 
 local LightningBolt = class() do
-	local partTemplate = Instance.new("Part")
-	partTemplate.Anchored = true
-	partTemplate.CanCollide = false
-	partTemplate.TopSurface = Enum.SurfaceType.Smooth
-	partTemplate.BottomSurface = Enum.SurfaceType.Smooth
+	local partTemplate = Instance.new("CylinderHandleAdornment")
 
 	function LightningBolt:init(origin, goal, options)
 		if typeof(origin) ~= "Vector3" then
@@ -37,6 +34,7 @@ local LightningBolt = class() do
 		self.depth = self.options.depth or 0
 		self.thickness = self.options.thickness or 1
 		self.rep = self.options.bends or 6
+		self.glow = self.options.glow or true
 
 		if self.options.color then
 			if typeof(self.options.color) == "Color3" then
@@ -49,8 +47,6 @@ local LightningBolt = class() do
 		else
 			self.color = BrickColor.new("White").Color
 		end
-
-		self.material = self.options.material or Enum.Material.Neon
 
 		self.branches = {}
 		self.lines = {
@@ -138,14 +134,17 @@ local LightningBolt = class() do
 		model.Name = "LightningBolt"
 
 		local template = partTemplate:Clone()
-		template.Material = self.material
-		template.Color = self.color
+		template.Adornee = workspace.Terrain
+		template.Color3 = self.color
+		template.AlwaysOnTop = self.glow
+		template.ZIndex = -1
 
 		local lines = self:GetLines()
 		for i = 1, #lines do
 			local line = lines[i]
 			local part = template:Clone()
-			part.Size = Vector3.new(self.thickness - line.depth * 2 * 0.1, self.thickness - line.depth * 2 * 0.1, (line.origin - line.goal).magnitude + 0.5)
+			part.Height = (line.origin - line.goal).magnitude + 0.5
+			part.Radius = self.thickness - line.depth * 2 * 0.1
 			part.CFrame = CFrame.new((line.goal + line.origin) / 2, line.goal)
 			part.Transparency = line.transparency
 			part.Parent = model
