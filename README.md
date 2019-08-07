@@ -1,3 +1,7 @@
+# Notice
+
+This is exactly the same as [evaera/EvLighting](https://github.com/evaera/EvLightning) except it utilizes CylinderHandleAdornment instead of Parts to draw the lighting bolts. This should in theory boost performance.
+
 # EvLightning
 
 EvLightning is a Roblox Lua library that aims to generate realistic-looking lightning bolts. This could be used to easily add lightning strike effects to your game.
